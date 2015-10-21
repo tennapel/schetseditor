@@ -85,4 +85,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rect1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rect2.png" />
+  </ItemGroup>
 </Project>

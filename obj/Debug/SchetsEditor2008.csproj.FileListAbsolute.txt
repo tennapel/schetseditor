@@ -1,0 +1,7 @@
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\bin\Debug\SchetsEditor.exe
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\bin\Debug\SchetsEditor.pdb
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\obj\Debug\SchetsEditor2008.csprojResolveAssemblyReference.cache
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\obj\Debug\SchetsEditor.Properties.Resources.resources
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\obj\Debug\SchetsEditor2008.csproj.GenerateResource.Cache
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\obj\Debug\SchetsEditor.exe
+C:\Users\Roelof\Documents\College\Imperatief Programmeren\schetseditor\obj\Debug\SchetsEditor.pdb

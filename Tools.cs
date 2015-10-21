@@ -115,7 +115,7 @@ namespace SchetsEditor
         }
     }
 
-    public class VolCirkelTool : RechthoekTool
+    public class VolCirkelTool : CirkelTool
     {
         public override string ToString() { return "rondje"; }
 
