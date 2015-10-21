@@ -41,6 +41,16 @@ namespace SchetsEditor
             this.Close();
         }
 
+        private void openen(object obj, EventArgs ea)
+        {
+            //Hier de openfunctionaliteit
+        }
+
+        private void opslaan(object obj, EventArgs ea)
+        {
+            //Hier de opslagfunctionaliteit
+        }
+
         public SchetsWin()
         {
             ISchetsTool[] deTools = { new PenTool()         
@@ -95,6 +105,10 @@ namespace SchetsEditor
         {   
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
+            //Openen
+            //Opslaan
+            menu.DropDownItems.Add("Openen", null, this.openen);
+            menu.DropDownItems.Add("Opslaan", null, this.opslaan);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
