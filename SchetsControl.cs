@@ -61,18 +61,25 @@ namespace SchetsEditor
             }
         }
         //Functie die een opgeslagen bmp, png of jpg tekent op de bitmap
-        public void Openen()
+        public bool Openen()
         {
-            Graphics g = schets.BitmapGraphics;
-
+            
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Images|*.png;*.bmp;*.jpg";
 
             if(ofd.ShowDialog() == DialogResult.OK)
             {
                 //Bitmap open = new Bitmap(ofd.FileName);
+                Bitmap open = new Bitmap(ofd.FileName);
+                schets.VeranderAfmeting(open.Size);
+                Graphics g = schets.BitmapGraphics;
                 g.DrawImage(new Bitmap(ofd.FileName), 0, 0);
                 this.Invalidate();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         public void Schoon(object o, EventArgs ea)

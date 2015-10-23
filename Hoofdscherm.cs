@@ -49,8 +49,10 @@ namespace SchetsEditor
         {
             SchetsWin s = new SchetsWin();
             s.MdiParent = this;
-            s.openen(sender, e);
-            s.Show();
+            if(s.openen(sender, e))
+                s.Show();
+            else
+                s.Close();
         }
         private void afsluiten(object sender, EventArgs e)
         {   this.Close();

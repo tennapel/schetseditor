@@ -41,9 +41,9 @@ namespace SchetsEditor
             this.Close();
         }
 
-        public void openen(object obj, EventArgs ea)
+        public bool openen(object obj, EventArgs ea)
         {
-            schetscontrol.Openen();
+            return schetscontrol.Openen();
         }
 
         private void opslaan(object obj, EventArgs ea)
