@@ -16,6 +16,10 @@ namespace SchetsEditor
         {
             get { return Graphics.FromImage(bitmap); }
         }
+        public Bitmap Bitmap
+        {
+            get { return bitmap; }
+        }
         public void VeranderAfmeting(Size sz)
         {
             if (sz.Width > bitmap.Size.Width || sz.Height > bitmap.Size.Height)

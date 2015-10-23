@@ -22,6 +22,7 @@ namespace SchetsEditor
         {   ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("File");
             menu.DropDownItems.Add("Nieuw", null, this.nieuw);
+            menu.DropDownItems.Add("Openen", null, this.open);
             menu.DropDownItems.Add("Exit", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
@@ -42,6 +43,13 @@ namespace SchetsEditor
         private void nieuw(object sender, EventArgs e)
         {   SchetsWin s = new SchetsWin();
             s.MdiParent = this;
+            s.Show();
+        }
+        private void open(object sender, EventArgs e)
+        {
+            SchetsWin s = new SchetsWin();
+            s.MdiParent = this;
+            s.openen(sender, e);
             s.Show();
         }
         private void afsluiten(object sender, EventArgs e)

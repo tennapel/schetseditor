@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace SchetsEditor
@@ -35,6 +36,44 @@ namespace SchetsEditor
         {   Graphics g = schets.BitmapGraphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             return g;
+        }
+        //Functie die de bitmap opvraagt en opslaat als png, bmp of jpg
+        public void Opslaan()
+        {
+            Bitmap b = schets.Bitmap;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Images|*.png;*.bmp;*.jpg";
+            ImageFormat format = ImageFormat.Png;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string ext = System.IO.Path.GetExtension(sfd.FileName);
+                switch (ext)
+                {
+                    case ".jpg":
+                        format = ImageFormat.Jpeg;
+                        break;
+                    case ".bmp":
+                        format = ImageFormat.Bmp;
+                        break;
+                }
+                b.Save(sfd.FileName, format);
+            }
+        }
+        //Functie die een opgeslagen bmp, png of jpg tekent op de bitmap
+        public void Openen()
+        {
+            Graphics g = schets.BitmapGraphics;
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Images|*.png;*.bmp;*.jpg";
+
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                //Bitmap open = new Bitmap(ofd.FileName);
+                g.DrawImage(new Bitmap(ofd.FileName), 0, 0);
+                this.Invalidate();
+            }
         }
         public void Schoon(object o, EventArgs ea)
         {   schets.Schoon();
