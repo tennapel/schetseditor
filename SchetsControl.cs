@@ -21,6 +21,7 @@ namespace SchetsEditor
             this.Paint += this.teken;
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
+            this.penkleur = Color.Black;
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -69,7 +70,6 @@ namespace SchetsEditor
 
             if(ofd.ShowDialog() == DialogResult.OK)
             {
-                //Bitmap open = new Bitmap(ofd.FileName);
                 Bitmap open = new Bitmap(ofd.FileName);
                 schets.VeranderAfmeting(open.Size);
                 Graphics g = schets.BitmapGraphics;
@@ -90,6 +90,14 @@ namespace SchetsEditor
         {   schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
             schets.Roteer();
             this.Invalidate();
+        }
+        public void KleurKiezer(object o, EventArgs ea)
+        {
+            ColorDialog cd = new ColorDialog();
+            if(cd.ShowDialog() == DialogResult.OK)
+            {
+                penkleur = cd.Color;
+            }
         }
         public void VeranderKleur(object obj, EventArgs ea)
         {   string kleurNaam = ((ComboBox)obj).Text;

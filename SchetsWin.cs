@@ -176,7 +176,14 @@ namespace SchetsEditor
             b.Location = new Point( 80, 0); 
             b.Click += schetscontrol.Roteer; 
             paneel.Controls.Add(b);
+
+            b = new Button();
+            b.Text = "Kleur";
+            b.Location = new Point(160, 0);
+            b.Click += schetscontrol.KleurKiezer;
+            paneel.Controls.Add(b);
             
+            /*
             l = new Label();  
             l.Text = "Penkleur:"; 
             l.Location = new Point(180, 3); 
@@ -190,6 +197,7 @@ namespace SchetsEditor
                 cbb.Items.Add(k);
             cbb.SelectedIndex = 0;
             paneel.Controls.Add(cbb);
+            */
         }
     }
 }
