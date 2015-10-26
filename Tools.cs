@@ -19,6 +19,8 @@ namespace SchetsEditor
 
         public virtual void MuisVast(SchetsControl s, Point p)
         {   startpunt = p;
+            //Maak bij het klikken een nieuw te-gummen element aan
+            s.acties.AddElement(this.ToString(), startpunt, s.PenKleur);
         }
         public virtual void MuisLos(SchetsControl s, Point p)
         {   kwast = new SolidBrush(s.PenKleur);
@@ -47,6 +49,9 @@ namespace SchetsEditor
                 // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
                 startpunt.X += (int)sz.Width;
                 s.Invalidate();
+
+                //Voeg de letter toe aan het opgeslagen element
+                s.acties.AddChar(c);
             }
         }
     }
@@ -76,6 +81,9 @@ namespace SchetsEditor
         {   base.MuisLos(s, p);
             this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
             s.Invalidate();
+
+            //Voeg een eindpunt toe aan het gemaakte element
+            s.acties.AddEind(p);
         }
         public override void Letter(SchetsControl s, char c)
         {
@@ -144,12 +152,19 @@ namespace SchetsEditor
         }
     }
     
-    public class GumTool : PenTool
+    public class GumTool : StartpuntTool
     {
         public override string ToString() { return "gum"; }
 
-        public override void Bezig(Graphics g, Point p1, Point p2)
-        {   g.DrawLine(MaakPen(Brushes.White, 7), p1, p2);
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            //Verwijder een element
+            s.acties.Gum(p);
+            //Redraw vanuit de acties
+            s.RedrawFromActions();
         }
+
+        public override void MuisDrag(SchetsControl s, Point p) { }
+        public override void Letter(SchetsControl s, char c) { }
     }
 }

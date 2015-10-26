@@ -46,6 +46,8 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="Acties.cs" />
+    <Compile Include="Element.cs" />
     <Compile Include="Hoofdscherm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -3,11 +3,13 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace SchetsEditor
 {   public class SchetsControl : UserControl
     {   private Schets schets;
         private Color penkleur;
+        public Acties acties;
 
         public Color PenKleur
         { get { return penkleur; }
@@ -22,6 +24,7 @@ namespace SchetsEditor
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
             this.penkleur = Color.Black;
+            this.acties = new Acties();
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -106,6 +109,13 @@ namespace SchetsEditor
         public void VeranderKleurViaMenu(object obj, EventArgs ea)
         {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
             penkleur = Color.FromName(kleurNaam);
+        }
+
+        //Herteken het veld na aanpassingen in de actieslijst
+        public void RedrawFromActions()
+        {
+            schets.Schoon();
+
         }
     }
 }
