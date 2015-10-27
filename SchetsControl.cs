@@ -13,6 +13,7 @@ namespace SchetsEditor
 
         public Color PenKleur
         { get { return penkleur; }
+          set { penkleur = value; }
         }
         public Schets Schets
         { get { return schets;   }
@@ -114,8 +115,17 @@ namespace SchetsEditor
         //Herteken het veld na aanpassingen in de actieslijst
         public void RedrawFromActions()
         {
+            //Sla de penkleur op, zodat we die straks netjes kunnen herstellen
+            Color huidigekleur = penkleur;
             schets.Schoon();
-
+            Graphics g = MaakBitmapGraphics();
+            //We kunnen nu op g tekenen, dat wordt de bitmap na invalidate
+            for(int i = 0; i < acties.Elementen.Count; i++)
+            {
+                acties.Elementen[i].TekenMe(this);
+            }
+            this.Invalidate();
+            penkleur = huidigekleur;
         }
     }
 }

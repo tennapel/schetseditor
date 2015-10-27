@@ -8,6 +8,11 @@ namespace SchetsEditor
     public class Acties
     {
         private List<Element> elementen;
+        public List<Element> Elementen
+        {
+            get { return elementen; }
+        }
+        
 
         //Als de actieslijst wordt aangemaakt, heeft hij nog geen elementen
         public Acties()
@@ -16,14 +21,19 @@ namespace SchetsEditor
         }
 
         //Maak een nieuw element aan en voeg hem toe aan de lijst
-        public void AddElement(string s, Point p, Color c)
+        public void AddElement(ISchetsTool t, Point p, Color c)
         {
-            elementen.Add(new Element(s, p, c));
+            elementen.Add(new Element(t, p, c));
         }
         //Voeg een eindpunt toe aan het laatste element
         public void AddEind(Point p)
         {
             elementen[elementen.Count - 1].AddEind(p);
+        }
+        //Voeg een beginpunt toe aan het laatste element
+        public void AddBegin(Point p)
+        {
+            elementen[elementen.Count - 1].AddBegin(p);
         }
         //Voeg een char toe aan het laatste element
         public void AddChar(char c)

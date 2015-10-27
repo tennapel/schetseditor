@@ -62,9 +62,6 @@ namespace SchetsEditor
                                     , new TekstTool()
                                     , new GumTool()
                                     };
-            String[] deKleuren = { "Black", "Red", "Green", "Blue"
-                                 , "Yellow", "Magenta", "Cyan" 
-                                 };
 
             this.ClientSize = new Size(700, 550);
             huidigeTool = deTools[0];
@@ -94,9 +91,9 @@ namespace SchetsEditor
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
             this.maakToolMenu(deTools);
-            this.maakAktieMenu(deKleuren);
+            this.maakAktieMenu();
             this.maakToolButtons(deTools);
-            this.maakAktieButtons(deKleuren);
+            this.maakAktieButtons();
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
         }
@@ -125,15 +122,12 @@ namespace SchetsEditor
             menuStrip.Items.Add(menu);
         }
 
-        private void maakAktieMenu(String[] kleuren)
+        private void maakAktieMenu()
         {   
             ToolStripMenuItem menu = new ToolStripMenuItem("Aktie");
             menu.DropDownItems.Add("Clear", null, schetscontrol.Schoon );
             menu.DropDownItems.Add("Roteer", null, schetscontrol.Roteer );
-            ToolStripMenuItem submenu = new ToolStripMenuItem("Kies kleur");
-            foreach (string k in kleuren)
-                submenu.DropDownItems.Add(k, null, schetscontrol.VeranderKleurViaMenu);
-            menu.DropDownItems.Add(submenu);
+            menu.DropDownItems.Add("Kies kleur", null, schetscontrol.KleurKiezer);
             menuStrip.Items.Add(menu);
         }
 
@@ -158,7 +152,7 @@ namespace SchetsEditor
             }
         }
 
-        private void maakAktieButtons(String[] kleuren)
+        private void maakAktieButtons()
         {   
             paneel = new Panel();
             paneel.Size = new Size(600, 24);
@@ -182,22 +176,6 @@ namespace SchetsEditor
             b.Location = new Point(160, 0);
             b.Click += schetscontrol.KleurKiezer;
             paneel.Controls.Add(b);
-            
-            /*
-            l = new Label();  
-            l.Text = "Penkleur:"; 
-            l.Location = new Point(180, 3); 
-            l.AutoSize = true;               
-            paneel.Controls.Add(l);
-            
-            cbb = new ComboBox(); cbb.Location = new Point(240, 0); 
-            cbb.DropDownStyle = ComboBoxStyle.DropDownList; 
-            cbb.SelectedValueChanged += schetscontrol.VeranderKleur;
-            foreach (string k in kleuren)
-                cbb.Items.Add(k);
-            cbb.SelectedIndex = 0;
-            paneel.Controls.Add(cbb);
-            */
         }
     }
 }

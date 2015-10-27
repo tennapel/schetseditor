@@ -7,6 +7,7 @@ namespace SchetsEditor
     public interface ISchetsTool
     {
         void MuisVast(SchetsControl s, Point p);
+        void MuisGhost(SchetsControl s, Point p);
         void MuisDrag(SchetsControl s, Point p);
         void MuisLos(SchetsControl s, Point p);
         void Letter(SchetsControl s, char c);
@@ -20,7 +21,12 @@ namespace SchetsEditor
         public virtual void MuisVast(SchetsControl s, Point p)
         {   startpunt = p;
             //Maak bij het klikken een nieuw te-gummen element aan
-            s.acties.AddElement(this.ToString(), startpunt, s.PenKleur);
+            s.acties.AddElement(this, startpunt, s.PenKleur);
+        }
+        //Variant van de startfunctie die geen element toevoegd, voor het verborgen hertekenen
+        public void MuisGhost(SchetsControl s, Point p)
+        {
+            startpunt = p;
         }
         public virtual void MuisLos(SchetsControl s, Point p)
         {   kwast = new SolidBrush(s.PenKleur);
@@ -145,10 +151,27 @@ namespace SchetsEditor
     public class PenTool : LijnTool
     {
         public override string ToString() { return "pen"; }
+        
+        /*
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            startpunt = p;
+            //Maak bij het klikken een nieuw te-gummen element aan
+            //s.acties.AddElement(this.ToString(), startpunt, s.PenKleur);
+        }
+        */
+
+        public void MuisRepeat(SchetsControl s, Point p)
+        {
+            startpunt = p;
+
+            //Vul aan element beginpunt toe bij het simuleren van het lijn-tekenen
+            s.acties.AddBegin(p);
+        }
 
         public override void MuisDrag(SchetsControl s, Point p)
         {   this.MuisLos(s, p);
-            this.MuisVast(s, p);
+            this.MuisRepeat(s, p);
         }
     }
     
@@ -165,6 +188,7 @@ namespace SchetsEditor
         }
 
         public override void MuisDrag(SchetsControl s, Point p) { }
+        public override void MuisLos(SchetsControl s, Point p) { }
         public override void Letter(SchetsControl s, char c) { }
     }
 }
