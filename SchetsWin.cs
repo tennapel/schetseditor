@@ -19,6 +19,17 @@ namespace SchetsEditor
                                  , Assembly.GetExecutingAssembly()
                                  );
 
+        public ISchetsTool[] deTools = { new PenTool()
+                                    , new LijnTool()
+                                    , new RechthoekTool()
+                                    , new VolRechthoekTool()
+                                    , new CirkelTool()
+                                    , new VolCirkelTool()
+                                    , new TekstTool()
+                                    , new GumTool()
+                                    , new TilTool()
+                                    };
+
         private void veranderAfmeting(object o, EventArgs ea)
         {
             schetscontrol.Size = new Size ( this.ClientSize.Width  - 70
@@ -46,6 +57,11 @@ namespace SchetsEditor
             return schetscontrol.Openen();
         }
 
+        public bool openschets(object obj, EventArgs ea)
+        {
+            return schetscontrol.OpenSchets(deTools);
+        }
+
         private void opslaan(object obj, EventArgs ea)
         {
             schetscontrol.Opslaan();
@@ -53,17 +69,7 @@ namespace SchetsEditor
 
         public SchetsWin()
         {
-            ISchetsTool[] deTools = { new PenTool()         
-                                    , new LijnTool()
-                                    , new RechthoekTool()
-                                    , new VolRechthoekTool()
-                                    , new CirkelTool()
-                                    , new VolCirkelTool()
-                                    , new TekstTool()
-                                    , new GumTool()
-                                    , new TilTool()
-                                    };
-
+            
             this.ClientSize = new Size(700, 600);
             huidigeTool = deTools[0];
 
@@ -104,7 +110,6 @@ namespace SchetsEditor
         {   
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
             menu.MergeAction = MergeAction.MatchOnly;
-            //menu.DropDownItems.Add("Openen", null, this.openen);
             menu.DropDownItems.Add("Opslaan", null, this.opslaan);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
             menuStrip.Items.Add(menu);

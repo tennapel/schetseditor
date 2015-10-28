@@ -23,6 +23,7 @@ namespace SchetsEditor
             menu = new ToolStripMenuItem("File");
             menu.DropDownItems.Add("Nieuw", null, this.nieuw);
             menu.DropDownItems.Add("Openen", null, this.open);
+            menu.DropDownItems.Add("Open schets", null, this.openschets);
             menu.DropDownItems.Add("Exit", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
@@ -50,6 +51,15 @@ namespace SchetsEditor
             SchetsWin s = new SchetsWin();
             s.MdiParent = this;
             if(s.openen(sender, e))
+                s.Show();
+            else
+                s.Close();
+        }
+        private void openschets(object sender, EventArgs e)
+        {
+            SchetsWin s = new SchetsWin();
+            s.MdiParent = this;
+            if (s.openschets(sender, e))
                 s.Show();
             else
                 s.Close();

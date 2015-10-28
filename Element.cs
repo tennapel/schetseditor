@@ -27,6 +27,39 @@ namespace SchetsEditor
             tekst = "";
         }
 
+        public override string ToString()
+        {
+            string result = "";
+            result += this.soort;
+            result += " ";
+            result += this.penkleur.ToArgb().ToString();
+            result += " ";
+            switch (this.soort)
+            {
+                case "tekst":
+                    result += this.tekst;
+                    result += " ";
+                    result += this.beginpunt[0].ToString();
+                    break;
+                case "pen":
+                    for(int i = 0; i < beginpunt.Count; i++)
+                    {
+                        result += beginpunt[i].ToString();
+                        result += " ";
+                        result += eindpunt[i].ToString();
+                        if (!(i == beginpunt.Count - 1))
+                            result += " ";
+                    }
+                    break;
+                default:
+                    result += this.beginpunt[0].ToString();
+                    result += " ";
+                    result += this.eindpunt[0].ToString();
+                    break;
+            }
+            return result;
+        }
+
         //Functie die het element op een graphics-element tekent
         public void TekenMe(SchetsControl s)
         {
@@ -41,9 +74,12 @@ namespace SchetsEditor
             }
             else
             {
+                tool.MuisGhost(s, beginpunt[0]);
+                s.PenKleur = penkleur;
+                tool.MuisLos(s, beginpunt[0]);
                 for (int i = 0; i < tekst.Length; i++)
                 {
-                    tool.Letter(s, tekst[i]);
+                    tool.LetterGhost(s, tekst[i]);
                 }
             }
         }
@@ -63,8 +99,12 @@ namespace SchetsEditor
         //Bij de teksttool worden er per knop letters toegevoegd aan een geschreven string
         public void AddChar(char c)
         {
-            //Misschien is ToString hier onnodig
             tekst += c.ToString();
+        }
+        //Tekst toevoegen (gebruikt bij inladen vanaf bestand)
+        public void AddTekst(string s)
+        {
+            tekst = s;
         }
 
         //Check of dit element is aangeklikt bij een zeker punt

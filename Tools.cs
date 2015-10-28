@@ -11,6 +11,7 @@ namespace SchetsEditor
         void MuisDrag(SchetsControl s, Point p);
         void MuisLos(SchetsControl s, Point p);
         void Letter(SchetsControl s, char c);
+        void LetterGhost(SchetsControl s, char c);
     }
 
     public abstract class StartpuntTool : ISchetsTool
@@ -33,6 +34,10 @@ namespace SchetsEditor
         }
         public abstract void MuisDrag(SchetsControl s, Point p);
         public abstract void Letter(SchetsControl s, char c);
+
+        public virtual void LetterGhost(SchetsControl s, char c)
+        {
+        }
     }
 
     public class TekstTool : StartpuntTool
@@ -43,21 +48,26 @@ namespace SchetsEditor
 
         public override void Letter(SchetsControl s, char c)
         {
+            this.LetterGhost(s, c);
+            if (c != ' ')
+                s.acties.AddChar(c);
+        }
+
+        //Variant die geen karakter toevoegt
+        public override void LetterGhost(SchetsControl s, char c)
+        {
             if (c >= 32)
             {
                 Graphics gr = s.MaakBitmapGraphics();
                 Font font = new Font("Tahoma", 40);
                 string tekst = c.ToString();
-                SizeF sz = 
+                SizeF sz =
                 gr.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-                gr.DrawString   (tekst, font, kwast, 
+                gr.DrawString(tekst, font, kwast,
                                               this.startpunt, StringFormat.GenericTypographic);
                 // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
                 startpunt.X += (int)sz.Width;
                 s.Invalidate();
-
-                //Voeg de letter toe aan het opgeslagen element
-                s.acties.AddChar(c);
             }
         }
     }
@@ -94,6 +104,7 @@ namespace SchetsEditor
         public override void Letter(SchetsControl s, char c)
         {
         }
+
         public abstract void Bezig(Graphics g, Point p1, Point p2);
         
         public virtual void Compleet(Graphics g, Point p1, Point p2)

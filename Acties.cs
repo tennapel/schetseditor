@@ -42,6 +42,11 @@ namespace SchetsEditor
         {
             elementen[elementen.Count - 1].AddChar(c);
         }
+        //Voeg tekst toe aan het laatste element
+        public void AddTekst(string s)
+        {
+            elementen[elementen.Count - 1].AddTekst(s);
+        }
 
         //Gum het aangeklikte element weg
         public void Gum(Point p)
@@ -51,6 +56,7 @@ namespace SchetsEditor
             {
                 if (elementen[i].Clicked(p))
                 {
+                    redolist.Add(elementen[elementen.Count - 1]);
                     elementen.RemoveAt(i);
                     break;
                 }

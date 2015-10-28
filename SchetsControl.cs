@@ -43,12 +43,14 @@ namespace SchetsEditor
             return g;
         }
         //Functie die de bitmap opvraagt en opslaat als png, bmp of jpg
+        //Of als custom schetsbestand (een txt met de juiste info)
         public void Opslaan()
         {
             Bitmap b = schets.Bitmap;
+            bool saveschets = false;
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Images|*.png;*.bmp;*.jpg";
+            sfd.Filter = "Schets|*.txt|Images|*.bmp;*.jpg;*.png";
             ImageFormat format = ImageFormat.Png;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -61,14 +63,25 @@ namespace SchetsEditor
                     case ".bmp":
                         format = ImageFormat.Bmp;
                         break;
+                    case ".txt":
+                        saveschets = true;
+                        break;
                 }
-                b.Save(sfd.FileName, format);
+                if (!saveschets)
+                {
+                    b.Save(sfd.FileName, format);
+                }
+                else
+                {
+                    //Sla het bestand op als herlaadbare schets, d.w.z. met de losse elementen
+                    ActiesFile.SaveActies(sfd.FileName, this);
+                }
             }
         }
+
         //Functie die een opgeslagen bmp, png of jpg tekent op de bitmap
         public bool Openen()
         {
-            
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Images|*.png;*.bmp;*.jpg";
 
@@ -86,7 +99,25 @@ namespace SchetsEditor
                 return false;
             }
         }
-        public void Schoon(object o, EventArgs ea)
+
+        //Functie die een schets inlaad
+        public bool OpenSchets(ISchetsTool[] tools)
+        {
+            Size filebitmapsize;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Schetsen|*.txt";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                acties = ActiesFile.LaadActies(ofd.FileName, tools, out filebitmapsize);
+                schets.VeranderAfmeting(filebitmapsize);
+                RedrawFromActions();
+                return true;
+            }
+            return false;
+        }
+
+    public void Schoon(object o, EventArgs ea)
         {   schets.Schoon();
             this.Invalidate();
         }
