@@ -64,7 +64,7 @@ namespace SchetsEditor
                                     , new TilTool()
                                     };
 
-            this.ClientSize = new Size(700, 550);
+            this.ClientSize = new Size(700, 600);
             huidigeTool = deTools[0];
 
             schetscontrol = new SchetsControl();
