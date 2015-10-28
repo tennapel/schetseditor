@@ -95,6 +95,18 @@ namespace SchetsEditor
             schets.Roteer();
             this.Invalidate();
         }
+        //Voer een undo uit
+        public void Undo(object o, EventArgs ea)
+        {
+            if(acties.Undo())
+                RedrawFromActions();
+        }
+        //Voer een redo uit
+        public void Redo(object o, EventArgs ea)
+        {
+            if (acties.Redo())
+                RedrawFromActions();
+        }
         public void KleurKiezer(object o, EventArgs ea)
         {
             ColorDialog cd = new ColorDialog();

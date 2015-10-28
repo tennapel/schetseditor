@@ -61,6 +61,7 @@ namespace SchetsEditor
                                     , new VolCirkelTool()
                                     , new TekstTool()
                                     , new GumTool()
+                                    , new TilTool()
                                     };
 
             this.ClientSize = new Size(700, 550);
@@ -90,6 +91,7 @@ namespace SchetsEditor
             menuStrip.Visible = false;
             this.Controls.Add(menuStrip);
             this.maakFileMenu();
+            this.maakEditMenu();
             this.maakToolMenu(deTools);
             this.maakAktieMenu();
             this.maakToolButtons(deTools);
@@ -105,6 +107,15 @@ namespace SchetsEditor
             //menu.DropDownItems.Add("Openen", null, this.openen);
             menu.DropDownItems.Add("Opslaan", null, this.opslaan);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
+            menuStrip.Items.Add(menu);
+        }
+
+        //Menu voor undo, (hier zou ook redo kunnen), roept undo uit de control aan
+        private void maakEditMenu()
+        {
+            ToolStripMenuItem menu = new ToolStripMenuItem("Edit");
+            menu.DropDownItems.Add("Undo", null, schetscontrol.Undo);
+            menu.DropDownItems.Add("Redo", null, schetscontrol.Redo);
             menuStrip.Items.Add(menu);
         }
 

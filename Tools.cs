@@ -191,4 +191,21 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p) { }
         public override void Letter(SchetsControl s, char c) { }
     }
+
+    public class TilTool : StartpuntTool
+    {
+        public override string ToString() { return "til"; }
+
+        public override void MuisVast(SchetsControl s, Point p)
+        {
+            //Herplaats een element
+            s.acties.Til(p);
+            //Redraw vanuit de acties om nieuwe volgorde aan te houden
+            s.RedrawFromActions();
+        }
+
+        public override void MuisDrag(SchetsControl s, Point p) { }
+        public override void MuisLos(SchetsControl s, Point p) { }
+        public override void Letter(SchetsControl s, char c) { }
+    }
 }
