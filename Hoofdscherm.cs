@@ -33,8 +33,10 @@ namespace SchetsEditor
             menu.DropDownItems.Add("Over \"Schets\"", null, this.about);
             menuStrip.Items.Add(menu);
         }
+
+        //Versie aangepast
         private void about(object o, EventArgs ea)
-        {   MessageBox.Show("Schets versie 1.0\n(c) UU Informatica 2010"
+        {   MessageBox.Show("Schets versie 2.0\n(c) UU Informatica 2010\n\nUitbreiding van versie 1.0 door\nGerben van der Werf\nRoelof ten Napel"
                            , "Over \"Schets\""
                            , MessageBoxButtons.OK
                            , MessageBoxIcon.Information
@@ -46,6 +48,8 @@ namespace SchetsEditor
             s.MdiParent = this;
             s.Show();
         }
+
+        //Functie om een bmp, jpg, png te openen naar een nieuw scherm
         private void open(object sender, EventArgs e)
         {
             SchetsWin s = new SchetsWin();
@@ -55,6 +59,8 @@ namespace SchetsEditor
             else
                 s.Close();
         }
+
+        //Functie om een schets (met gum-info) te openen naar een nieuw scherm
         private void openschets(object sender, EventArgs e)
         {
             SchetsWin s = new SchetsWin();

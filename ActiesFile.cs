@@ -8,9 +8,6 @@ namespace SchetsEditor
 {
     public static class ActiesFile
     {
-        //System.Windows.Forms.MessageBox.Show(s.PenKleur.ToArgb().ToString());
-        //s.PenKleur = Color.FromArgb(-16777216);
-
         public static void SaveActies(string filename, SchetsControl sc)
         {
             List<Element> e = sc.acties.Elementen;
@@ -60,6 +57,7 @@ namespace SchetsEditor
                 else
                     kleur = Color.Black;
                 
+                //Afhankelijk van het type moeten andere eigenschappenvolgordes worden aangehouden
                 switch(parameters[0])
                 {
                     case "tekst":

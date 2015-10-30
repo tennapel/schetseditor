@@ -20,7 +20,8 @@ namespace SchetsEditor
         protected Brush kwast;
 
         public virtual void MuisVast(SchetsControl s, Point p)
-        {   startpunt = p;
+        {
+            this.MuisVirtueel(s, p);
             //Maak bij het klikken een nieuw te-gummen element aan
             s.acties.AddElement(this, startpunt, s.PenKleur);
         }
@@ -54,7 +55,7 @@ namespace SchetsEditor
                 s.acties.AddChar(c);
         }
 
-        //Variant die geen karakter toevoegt
+        //Variant die geen element toevoegt
         public override void LetterVirtueel(SchetsControl s, char c)
         {
             if (c >= 32)
@@ -163,20 +164,10 @@ namespace SchetsEditor
     public class PenTool : LijnTool
     {
         public override string ToString() { return "pen"; }
-        
-        /*
-        public override void MuisVast(SchetsControl s, Point p)
-        {
-            startpunt = p;
-            //Maak bij het klikken een nieuw te-gummen element aan
-            //s.acties.AddElement(this.ToString(), startpunt, s.PenKleur);
-        }
-        */
 
         public void MuisRepeat(SchetsControl s, Point p)
         {
-            startpunt = p;
-
+            this.MuisVirtueel(s, p);
             //Vul aan element beginpunt toe bij het simuleren van het lijn-tekenen
             s.acties.AddBegin(p);
         }

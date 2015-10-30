@@ -228,8 +228,6 @@ namespace SchetsEditor
             //Formule voor afstand tot een lijn
             dist = u1 / u3;
 
-            //MessageBox.Show(dist.ToString());
-
             if (dist < thick)
                 return true;
 

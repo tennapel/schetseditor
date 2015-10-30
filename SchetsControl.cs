@@ -42,6 +42,7 @@ namespace SchetsEditor
             g.SmoothingMode = SmoothingMode.AntiAlias;
             return g;
         }
+
         //Functie die de bitmap opvraagt en opslaat als png, bmp of jpg
         //Of als custom schetsbestand (een txt met de juiste info)
         public void Opslaan()
@@ -117,10 +118,10 @@ namespace SchetsEditor
             return false;
         }
 
-    public void Schoon(object o, EventArgs ea)
+        public void Schoon(object o, EventArgs ea)
         {
             //Gebruiker vragen of hij dit zeker weet: alle schetsinfo gaat verloren
-            if(MessageBox.Show("Weet je zeker dat je het venster leeg wilt maken? Alle schetsdata gaat verloren!", "Waarschuwing", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Weet je zeker dat je het venster leeg wilt maken? Alle schetsdata gaat verloren!", "Waarschuwing", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 acties.Leeg();
                 schets.Schoon();
@@ -151,14 +152,6 @@ namespace SchetsEditor
             {
                 penkleur = cd.Color;
             }
-        }
-        public void VeranderKleur(object obj, EventArgs ea)
-        {   string kleurNaam = ((ComboBox)obj).Text;
-            penkleur = Color.FromName(kleurNaam);
-        }
-        public void VeranderKleurViaMenu(object obj, EventArgs ea)
-        {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
-            penkleur = Color.FromName(kleurNaam);
         }
 
         //Herteken het veld na aanpassingen in de actieslijst

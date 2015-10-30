@@ -42,9 +42,5 @@ namespace SchetsEditor
             Graphics gr = Graphics.FromImage(bitmap);
             gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
         }
-        public void Roteer()
-        {
-            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-        }
     }
 }
