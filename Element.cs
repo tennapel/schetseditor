@@ -27,6 +27,7 @@ namespace SchetsEditor
             tekst = "";
         }
 
+        //Gebruik de ToString om het element schrijfbaar te maken naar een tekstbestand
         public override string ToString()
         {
             string result = "";
@@ -67,19 +68,19 @@ namespace SchetsEditor
             {
                 for(int i = 0; i < beginpunt.Count; i++)
                 {
-                    tool.MuisGhost(s, beginpunt[i]);
+                    tool.MuisVirtueel(s, beginpunt[i]);
                     s.PenKleur = penkleur;
                     tool.MuisLos(s, eindpunt[i]);
                 }
             }
             else
             {
-                tool.MuisGhost(s, beginpunt[0]);
+                tool.MuisVirtueel(s, beginpunt[0]);
                 s.PenKleur = penkleur;
                 tool.MuisLos(s, beginpunt[0]);
                 for (int i = 0; i < tekst.Length; i++)
                 {
-                    tool.LetterGhost(s, tekst[i]);
+                    tool.LetterVirtueel(s, tekst[i]);
                 }
             }
         }
@@ -105,6 +106,22 @@ namespace SchetsEditor
         public void AddTekst(string s)
         {
             tekst = s;
+        }
+
+        //Functie voor het herzien van de roteer-knop na ingebouwde undo-redo-structuur
+        public void Rotate(int imagewidth)
+        {
+            Point p;
+            for(int i = 0; i < beginpunt.Count; i++)
+            {
+                p = beginpunt[i];
+                beginpunt[i] = new Point(imagewidth - p.Y, p.X);
+            }
+            for (int i = 0; i < eindpunt.Count; i++)
+            {
+                p = eindpunt[i];
+                eindpunt[i] = new Point(imagewidth - p.Y, p.X);
+            }
         }
 
         //Check of dit element is aangeklikt bij een zeker punt
@@ -163,19 +180,16 @@ namespace SchetsEditor
             return false;
         }
 
-        //Hulpfunctie: geef de linkerbovenhoek (als eindpunt kleiner is dan beginpunt)
+        //Hulpfunctie: geef de linkerbovenhoek (als eindpunt kleiner is dan beginpunt, of geroteerd)
         private Point lb(int i = 0)
         {
-            if (beginpunt[i].X > eindpunt[i].X || beginpunt[i].Y > eindpunt[i].Y)
-                return eindpunt[i];
-            return beginpunt[i];
+            return new Point(Math.Min(beginpunt[i].X, eindpunt[i].X), Math.Min(beginpunt[i].Y, eindpunt[i].Y));
         }
-        //Hulpfunctie: geef de rechteronderhoek (als eindpunt kleiner is dan beginpunt)
+
+        //Hulpfunctie: geef de rechteronderhoek (als eindpunt kleiner is dan beginpunt, of geroteerd)
         private Point ro(int i = 0)
         {
-            if (beginpunt[i].X > eindpunt[i].X || beginpunt[i].Y > eindpunt[i].Y)
-                return beginpunt[i];
-            return eindpunt[i];
+            return new Point(Math.Max(beginpunt[i].X, eindpunt[i].X), Math.Max(beginpunt[i].Y, eindpunt[i].Y));
         }
         //Hulpfunctie: check of een punt binnen een ellips rond 0, 0 zit (met aan te passen 'dikte').
         private bool inEllips(double x, double y, double thick = 0)

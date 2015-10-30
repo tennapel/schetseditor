@@ -18,8 +18,7 @@ namespace SchetsEditor
         //Als de actieslijst wordt aangemaakt, heeft hij nog geen elementen
         public Acties()
         {
-            elementen = new List<Element>();
-            redolist = new List<Element>();
+            this.Leeg();
         }
 
         //Maak een nieuw element aan en voeg hem toe aan de lijst
@@ -48,6 +47,13 @@ namespace SchetsEditor
             elementen[elementen.Count - 1].AddTekst(s);
         }
 
+        //Roteert de schets
+        public void Roteer(int width)
+        {
+            foreach(Element element in elementen)
+                element.Rotate(width);
+        }
+
         //Gum het aangeklikte element weg
         public void Gum(Point p)
         {
@@ -56,7 +62,7 @@ namespace SchetsEditor
             {
                 if (elementen[i].Clicked(p))
                 {
-                    redolist.Add(elementen[elementen.Count - 1]);
+                    redolist.Add(elementen[i]);
                     elementen.RemoveAt(i);
                     break;
                 }
@@ -104,6 +110,13 @@ namespace SchetsEditor
                 return true;
             }
             return false;
+        }
+
+        //Maak beide lijsten leeg (voor 'clear'-functionaliteit)
+        public void Leeg()
+        {
+            elementen = new List<Element>();
+            redolist = new List<Element>();
         }
     }
 }

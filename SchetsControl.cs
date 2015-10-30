@@ -118,13 +118,19 @@ namespace SchetsEditor
         }
 
     public void Schoon(object o, EventArgs ea)
-        {   schets.Schoon();
-            this.Invalidate();
+        {
+            //Gebruiker vragen of hij dit zeker weet: alle schetsinfo gaat verloren
+            if(MessageBox.Show("Weet je zeker dat je het venster leeg wilt maken? Alle schetsdata gaat verloren!", "Waarschuwing", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                acties.Leeg();
+                schets.Schoon();
+                this.Invalidate();
+            }
         }
         public void Roteer(object o, EventArgs ea)
         {   schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
-            schets.Roteer();
-            this.Invalidate();
+            acties.Roteer(this.ClientSize.Width);
+            RedrawFromActions();
         }
         //Voer een undo uit
         public void Undo(object o, EventArgs ea)

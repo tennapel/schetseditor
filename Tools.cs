@@ -7,11 +7,11 @@ namespace SchetsEditor
     public interface ISchetsTool
     {
         void MuisVast(SchetsControl s, Point p);
-        void MuisGhost(SchetsControl s, Point p);
+        void MuisVirtueel(SchetsControl s, Point p);
         void MuisDrag(SchetsControl s, Point p);
         void MuisLos(SchetsControl s, Point p);
         void Letter(SchetsControl s, char c);
-        void LetterGhost(SchetsControl s, char c);
+        void LetterVirtueel(SchetsControl s, char c);
     }
 
     public abstract class StartpuntTool : ISchetsTool
@@ -25,7 +25,7 @@ namespace SchetsEditor
             s.acties.AddElement(this, startpunt, s.PenKleur);
         }
         //Variant van de startfunctie die geen element toevoegd, voor het verborgen hertekenen
-        public void MuisGhost(SchetsControl s, Point p)
+        public void MuisVirtueel(SchetsControl s, Point p)
         {
             startpunt = p;
         }
@@ -35,7 +35,8 @@ namespace SchetsEditor
         public abstract void MuisDrag(SchetsControl s, Point p);
         public abstract void Letter(SchetsControl s, char c);
 
-        public virtual void LetterGhost(SchetsControl s, char c)
+        //Variant van de letterfunctie die geen element toevoegd, voor het hertekenen uit acties
+        public virtual void LetterVirtueel(SchetsControl s, char c)
         {
         }
     }
@@ -48,13 +49,13 @@ namespace SchetsEditor
 
         public override void Letter(SchetsControl s, char c)
         {
-            this.LetterGhost(s, c);
+            this.LetterVirtueel(s, c);
             if (c != ' ')
                 s.acties.AddChar(c);
         }
 
         //Variant die geen karakter toevoegt
-        public override void LetterGhost(SchetsControl s, char c)
+        public override void LetterVirtueel(SchetsControl s, char c)
         {
             if (c >= 32)
             {
